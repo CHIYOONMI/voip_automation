@@ -1,3 +1,11 @@
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
+
 import io.appium.java_client.touch.ActionOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.appium.java_client.TouchAction;
@@ -5,8 +13,6 @@ import org.hamcrest.Matchers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -25,17 +31,14 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class GroupCall {
+public class Call {
 
     public AndroidDriver driver = null;
     public DesiredCapabilities capabilities = new DesiredCapabilities();
+
     public WebElement element;
     public String prefix = "jp.naver.line.android";
-    public String p1 = "(//android.view.ViewGroup[@content-desc=";
-    public String join_device = "galaxy s6";
-    public String start_device = "Galaxy S10";
-    public String room_name = "auto";
-    public String call_type = "Video call";
+    public String callnum = "//android.widget.RelativeLayout[@content-desc";
 
     @BeforeClass(alwaysRun = true)
     @Parameters({"platform", "port", "udid", "device", "ver", "autoname", "systemp"})
@@ -60,61 +63,73 @@ public class GroupCall {
             capabilities.setCapability("systemPort", systemp);
 
             driver = new AndroidDriver(new URL("http://127.0.0.1:" + port + "/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS); // findElement timeout
+            driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 
             // Todo Call API class
         }
     }
 
-    // Start GC
+    //app start to call tab
     @Test
-    public void GC_TC_01 () throws InterruptedException {
+    public void TC_01_launchApp () throws InterruptedException {
 
-        element = driver.findElementByXPath(p1 + "\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.widget.TextView");
+        element = driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.widget.TextView");
         String text1 = element.getText();
         Assert.assertEquals(text1, "Calls");
 
-        element = driver.findElementByXPath(p1 + "\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.view.View");
-        element.click();
-
-        element = driver.findElementByXPath("//android.widget.TextView[@text='" + room_name + "']");
-        element.click();
-
-        element = driver.findElementByXPath("//android.widget.TextView[@text='" + call_type + "']");
-        element.click();
-
-        // avoiding audio feedback - speaker off
-        element = driver.findElementByXPath(p1 + "\"Turn off microphone\"]");
+        element = driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.view.View");
         element.click();
     }
 
-
-    // start device
+    // keypad
     @Test
-    public void GC_TC_02 () throws InterruptedException {
-        // start device
-        while (1==1) {
-            if (driver.findElementByXPath("//android.widget.TextView[@text='"+join_device+"']").isDisplayed())
-                Thread.sleep(10000);
-            TouchAction ta = new TouchAction(driver);
-            ta.press(PointOption.point(274, 2124)).release().perform();
+    public void TC_02_launchApp () throws InterruptedException {
 
-            element = driver.findElementById(prefix + ":id/voipcall_end_btn");
+        element = driver.findElementById(prefix + ":id/header_title");
+        String text2 = element.getText();
+        Assert.assertEquals(text2, "Calls");
+
+        element = driver.findElementByXPath("//android.widget.FrameLayout[@content-desc=\"Keypad button\"]/android.widget.ImageView");
+        element.click();
+
+        Thread.sleep(1000);
+
+        element = driver.findElementById(prefix + ":id/input_number_edit");
+        String text3 = element.getText();
+        Assert.assertEquals(text3, "+81");
+
+        element.sendKeys("####"); // phone number
+        Thread.sleep(1000);
+    }
+
+    int count = 1;
+
+    // call to end loop
+    @Test
+    public void TC_03_launchApp() throws InterruptedException {
+
+        do {
+            element = driver.findElementById(prefix + ":id/keypad_call_button");
             element.click();
-            break;
-        }
-    }
 
-    // join device
-    @Test
-    public void GC_TC_03 () throws InterruptedException {
+            Thread.sleep(5000);
 
-        //join device
-        while (1==1) {
-            if (driver.findElementByXPath("//android.widget.TextView[@text='"+start_device+"']").isDisplayed())
-                Thread.sleep(10000);
-             break;
-        }
+            //calling verifiy
+            element = driver.findElementById(prefix + ":id/line_out_name_text");
+            String text4 = element.getText();
+            Assert.assertEquals(text4, "07041351187");
+
+            //calling verifiy
+            while(1==1) {
+                if (driver.findElementById(prefix + ":id/line_out_status_text").isDisplayed())
+                    Thread.sleep(70000);
+                element = driver.findElementById(prefix + ":id/voipcall_end_btn");
+                element.click();
+                break;
+            }
+
+            count++;
+        } while (count < 4); // loop count
     }
 
     @AfterTest
