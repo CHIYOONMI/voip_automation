@@ -1,3 +1,4 @@
+package utils
 import io.appium.java_client.touch.ActionOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import io.appium.java_client.TouchAction;
@@ -36,6 +37,7 @@ public class GroupCall {
     public String start_device = "Galaxy S10";
     public String room_name = "auto";
     public String call_type = "Video call";
+    DeviceControl DeviceControl = new DeviceControl();
 
     @BeforeClass(alwaysRun = true)
     @Parameters({"platform", "port", "udid", "device", "ver", "autoname", "systemp"})
@@ -76,7 +78,7 @@ public class GroupCall {
 
         element = driver.findElementByXPath(p1 + "\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.view.View");
         element.click();
-
+        /*
         element = driver.findElementByXPath("//android.widget.TextView[@text='" + room_name + "']");
         element.click();
 
@@ -86,6 +88,10 @@ public class GroupCall {
         // avoiding audio feedback - speaker off
         element = driver.findElementByXPath(p1 + "\"Turn off microphone\"]");
         element.click();
+        */
+        DeviceControl.selectRoomName(driver, "auto");
+        DeviceControl.selectCallType(driver, "Video call");
+        DeviceControl.clickTrunOffMicBtn(driver);
     }
 
 
