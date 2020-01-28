@@ -30,6 +30,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.CallUtils;
+import utils.CommonUtils;
+import utils.GroupCallUtils;
+import utils.Values;
 
 public class Call {
 
@@ -38,7 +42,11 @@ public class Call {
 
     public WebElement element;
     public String prefix = "jp.naver.line.android";
-    public String callnum = "//android.widget.RelativeLayout[@content-desc";
+
+    // Utils instance
+    private CallUtils CallUtils = new CallUtils();
+    private CommonUtils CommonUtils = new CommonUtils();
+    private Values Values = new Values();
 
     @BeforeClass(alwaysRun = true)
     @Parameters({"platform", "port", "udid", "device", "ver", "autoname", "systemp"})
@@ -73,12 +81,8 @@ public class Call {
     @Test
     public void TC_01_launchApp () throws InterruptedException {
 
-        element = driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.widget.TextView");
-        String text1 = element.getText();
-        Assert.assertEquals(text1, "Calls");
-
-        element = driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.view.View");
-        element.click();
+        Assert.assertEquals(CommonUtils.getTextCallTab(driver), "Calls");
+        CommonUtils.clickCallTab(driver);
     }
 
     // keypad
