@@ -68,7 +68,7 @@ public class Call {
         CallUtils.clickKeypadButton(driver);
         CommonUtils.sleep(1000);
 
-        CallUtils.SendPhoneNumber(driver);
+        CallUtils.SendPhoneNumber(driver, Values.PHONENUMBER);
         CommonUtils.sleep(1000);
     }
 

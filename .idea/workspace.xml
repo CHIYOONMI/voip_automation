@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="295c1a6c-27fd-4e7c-aaba-427a2ff9ed63" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Call.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/GroupCall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GroupCall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/utils/CallUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/CallUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/utils/Values.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/Values.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +42,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Line.GroupCall" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">

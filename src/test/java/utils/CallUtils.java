@@ -1,6 +1,8 @@
 package utils;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.WebElement;
 
 public class CallUtils {
@@ -25,8 +27,8 @@ public class CallUtils {
     /**
      *  발신 할 번호 입력
      */
-    public void SendPhoneNumber(AndroidDriver driver) {
-        driver.findElementById(prefix + ":id/input_number_edit").sendKeys("####"); // Phone number values???
+    public void SendPhoneNumber(AndroidDriver driver, String PhoneNumber) {
+        driver.findElementById(prefix + ":id/input_number_edit").sendKeys(PhoneNumber); // Phone number values???
     }
 
     /**
@@ -49,6 +51,30 @@ public class CallUtils {
      */
     public void ClickEndButton(AndroidDriver driver) {
         driver.findElementById(prefix + ":id/voipcall_end_btn").click();
+    }
+
+    /**
+     *  LINECall Ad 화면 확인
+     */
+    public boolean isDisplayedAds(AndroidDriver driver){
+        return driver.findElementByXPath("//android.widget.Image").isDisplayed();
+    }
+
+
+    /**
+     *  LINECall 화면에서 LINEOut Status 표시되는지 확인
+     */
+    public void androidBackKey(AndroidDriver driver) {
+        driver.navigate().back();
+    }
+
+
+    /**
+     *  예외처리 : resume 버튼
+     */
+    public void tapSomething(AndroidDriver driver) {
+        TouchAction action = new TouchAction(driver);
+        action.press(PointOption.point(795, 1310)).release().perform();
     }
 
 

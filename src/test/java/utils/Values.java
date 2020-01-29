@@ -12,4 +12,6 @@ public class Values {
     // Devices
     public final String GALAXY_S6 = "galaxy s6";
     public final String GALAXY_S10 = "Galaxy S10";
+
+    public final String PHONENUMBER = "07041351187";
 }
