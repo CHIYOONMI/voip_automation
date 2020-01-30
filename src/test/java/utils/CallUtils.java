@@ -72,7 +72,7 @@ public class CallUtils {
     /**
      *  예외처리 : resume 버튼
      */
-    public void tapSomething(AndroidDriver driver) {
+    public void tapResume(AndroidDriver driver) {
         TouchAction action = new TouchAction(driver);
         action.press(PointOption.point(795, 1310)).release().perform();
     }

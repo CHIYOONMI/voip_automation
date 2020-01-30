@@ -96,8 +96,59 @@ public class Call {
         } while (count < 4); // loop count
     }
 
+    // keypad
+    // Status 변경 step 추가 필요
+
+    // Reward　Call Play Ads
+    @Test
+    public void Call_TC_04 () throws InterruptedException {
+
+        CallUtils.ClickCallButton(driver);
+        CommonUtils.sleep(30000);
+
+        while (1 == 1) {
+            driver.navigate().back();
+            CommonUtils.sleep(1000);
+
+            if (CallUtils.isDisplayedAds(driver)) {
+                CallUtils.tapResume(driver);
+                CommonUtils.sleep(5000);
+            } else {
+                break;
+            }
+        }
+    }
+
+
+
+
     @AfterTest
     public void quitDriver () {
         driver.quit();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
