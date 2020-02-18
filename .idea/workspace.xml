@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/Call.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Call.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/utils/CallUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/CallUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/utils/Values.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/Values.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,9 +68,9 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2440" y="109" key="FileChooserDialogImpl" timestamp="1580344878077">
+    <state x="2440" y="109" key="FileChooserDialogImpl" timestamp="1581988659635">
       <screen x="1920" y="-349" width="2560" height="1400" />
     </state>
-    <state x="2440" y="109" key="FileChooserDialogImpl/0.0.1280.680/1920.-349.2560.1400@1920.-349.2560.1400" timestamp="1580344878077" />
+    <state x="2440" y="109" key="FileChooserDialogImpl/0.0.1280.680/1920.-349.2560.1400@1920.-349.2560.1400" timestamp="1581988659635" />
   </component>
 </project>
