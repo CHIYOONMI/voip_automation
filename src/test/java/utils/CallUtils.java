@@ -134,6 +134,20 @@ public class CallUtils {
         action.press(PointOption.point(744, 1268)).release().perform();
     }
 
+    /**
+     *  Ads limit
+     */
+    public boolean RewardLimitText(AndroidDriver driver) {
+        return driver.findElementById(prefix + ":id/title_line_out_free").isDisplayed();
+    }
+
+    /**
+     *  Ads Limit Cancel Button
+     */
+    public void LimitCancelbutton(AndroidDriver driver) {
+        driver.findElementById(prefix + ":id/button_second").click();
+    }
+
 
 
 

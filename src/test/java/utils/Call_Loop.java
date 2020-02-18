@@ -51,19 +51,27 @@ public class Call_Loop {
         CallUtils.ClickCallButton(driver);
         CommonUtils.sleep(20000);
 
-        while (1==1) {
-            CallUtils.androidBackKey(driver);
-            CommonUtils.sleep(1000);
+        try {
+            if (CallUtils.RewardLimitText(driver)) ;
+            {
+                CallUtils.LimitCancelbutton(driver);
+            }
+        } catch (NoSuchElementException e) {
+            while (1==1) {
+                CallUtils.androidBackKey(driver);
+                CommonUtils.sleep(1000);
 
-            try {
-                if (CallUtils.isDisplayedCallStatus(driver)); {
+                try {
+                    if (CallUtils.isDisplayedCallStatus(driver)) ;
+                    {
+                        CommonUtils.sleep(5000);
+                        CallUtils.ClickEndButton(driver);
+                        break;
+                    }
+                } catch (NoSuchElementException f) {
+                    CallUtils.Resumepoint(driver);
                     CommonUtils.sleep(5000);
-                    CallUtils.ClickEndButton(driver);
-                    break;
                 }
-            } catch (NoSuchElementException e) {
-                CallUtils.Resumepoint(driver);
-                CommonUtils.sleep(5000);
             }
         }
     }
