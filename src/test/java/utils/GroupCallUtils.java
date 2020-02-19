@@ -30,7 +30,7 @@ public class GroupCallUtils {
     }
 
     /**
-     *  마이크 끄기 버튼 클릭
+     *  마이크 끄기 버튼 클릭 - 하울링 방지
      */
     public void clickTrunOffMicBtn(AndroidDriver driver) {
         driver.findElementByXPath("//android.view.ViewGroup[@content-desc=\"Turn off microphone\"]").click();
@@ -53,7 +53,7 @@ public class GroupCallUtils {
     }
 
     /**
-     *  뭔가를 탭
+     *  뭔가를 탭 : 통화 시작 후 일정시간 경과하면 화면에서 종료아이콘 사라짐 - 종료하려면 화면 탭해서 아이콘 표시 필요
      */
     public void tapSomething(AndroidDriver driver) {
         TouchAction action = new TouchAction(driver);
@@ -61,7 +61,7 @@ public class GroupCallUtils {
     }
 
     /**
-     * 콜 탭에서 텍스트를 취득?
+     * 콜 탭에서 텍스트를 취득? - 홈 화면에서 콜탭인지 뉴스인지 확인(디폴트가 뉴스임) - 커먼에 카피함
      * @return 취득한 텍스트
      */
     public String getTextCallTab(AndroidDriver driver) {
@@ -70,7 +70,7 @@ public class GroupCallUtils {
     }
 
     /**
-     *  콜 탭 클릭?
+     *  콜 탭 클릭? - 라인 홈화면에서 콜탭으로 이동(라인콜과 공통 동작 - 커먼으로 이동해도 될 듯 - 커먼에 카피함 - Call은 커먼에서 사용)
      */
     public void clickCallTab(AndroidDriver driver){
         driver.findElementByXPath(FOTTER_MENU_PREFIX + "/android.view.View").click();

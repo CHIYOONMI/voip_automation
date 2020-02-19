@@ -1,44 +1,29 @@
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.markuputils.ExtentColor;
-import com.aventstack.extentreports.markuputils.MarkupHelper;
-import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
-import com.aventstack.extentreports.reporter.configuration.Theme;
-
-import io.appium.java_client.touch.ActionOptions;
-import io.appium.java_client.touch.offset.PointOption;
-import io.appium.java_client.TouchAction;
-import org.hamcrest.Matchers;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.touch.TouchActions;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
-import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import utils.CallUtils;
+import utils.Call_Loop;
+import utils.CommonUtils;
+import utils.Values;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.remote.DesiredCapabilities;
-import io.appium.java_client.android.AndroidDriver;
-
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 public class Call {
 
     public AndroidDriver driver = null;
     public DesiredCapabilities capabilities = new DesiredCapabilities();
 
-    public WebElement element;
-    public String prefix = "jp.naver.line.android";
-    public String callnum = "//android.widget.RelativeLayout[@content-desc";
+    // Utils instance
+    private CallUtils CallUtils = new CallUtils();
+    private CommonUtils CommonUtils = new CommonUtils();
+    private Values Values = new Values();
+    private Call_Loop Call_Loop = new Call_Loop();
 
     @BeforeClass(alwaysRun = true)
     @Parameters({"platform", "port", "udid", "device", "ver", "autoname", "systemp"})
@@ -63,7 +48,7 @@ public class Call {
             capabilities.setCapability("systemPort", systemp);
 
             driver = new AndroidDriver(new URL("http://127.0.0.1:" + port + "/wd/hub"), capabilities);
-            driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
             // Todo Call API class
         }
@@ -71,65 +56,33 @@ public class Call {
 
     //app start to call tab
     @Test
-    public void TC_01_launchApp () throws InterruptedException {
+    public void Call_TC_01 () throws InterruptedException {
 
-        element = driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.widget.TextView");
-        String text1 = element.getText();
-        Assert.assertEquals(text1, "Calls");
-
-        element = driver.findElementByXPath("(//android.view.ViewGroup[@content-desc=\"@{bottomNavigationBarButtonViewModel.contentDescription\"])[4]/android.view.View");
-        element.click();
+        Assert.assertEquals(CommonUtils.getTextCallTab(driver), "Calls");
+        CommonUtils.clickCallTab(driver);
     }
 
     // keypad
     @Test
-    public void TC_02_launchApp () throws InterruptedException {
+    public void Call_TC_02 () throws InterruptedException {
 
-        element = driver.findElementById(prefix + ":id/header_title");
-        String text2 = element.getText();
-        Assert.assertEquals(text2, "Calls");
+        Assert.assertEquals(CallUtils.getTextHeaderTitle(driver), "Calls");
+        CallUtils.clickKeypadButton(driver);
+        CommonUtils.sleep(1000);
 
-        element = driver.findElementByXPath("//android.widget.FrameLayout[@content-desc=\"Keypad button\"]/android.widget.ImageView");
-        element.click();
-
-        Thread.sleep(1000);
-
-        element = driver.findElementById(prefix + ":id/input_number_edit");
-        String text3 = element.getText();
-        Assert.assertEquals(text3, "+81");
-
-        element.sendKeys("####"); // phone number
-        Thread.sleep(1000);
+        CallUtils.SendPhoneNumber(driver, Values.PHONENUMBER);
+        CommonUtils.sleep(1000);
     }
 
     int count = 1;
-
-    // call to end loop
     @Test
-    public void TC_03_launchApp() throws InterruptedException {
-
+    public void Call_TC_03 () throws InterruptedException {
         do {
-            element = driver.findElementById(prefix + ":id/keypad_call_button");
-            element.click();
-
-            Thread.sleep(5000);
-
-            //calling verifiy
-            element = driver.findElementById(prefix + ":id/line_out_name_text");
-            String text4 = element.getText();
-            Assert.assertEquals(text4, "07041351187");
-
-            //calling verifiy
-            while(1==1) {
-                if (driver.findElementById(prefix + ":id/line_out_status_text").isDisplayed())
-                    Thread.sleep(70000);
-                element = driver.findElementById(prefix + ":id/voipcall_end_btn");
-                element.click();
-                break;
-            }
+            Call_Loop.Call_loop_paid(driver);
+            Call_Loop.Call_loop_reward(driver);
 
             count++;
-        } while (count < 4); // loop count
+        } while (count < 7);
     }
 
     @AfterTest
@@ -137,3 +90,28 @@ public class Call {
         driver.quit();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
