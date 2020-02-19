@@ -1,0 +1,27 @@
+{
+  "capabilities":
+      [
+        {
+         "deviceName": "Galaxy Note 7",
+          "version":"6.0.1",
+          "maxInstances": 2,
+          "platform":"Android",
+          "udid": "ce071607e274b21d03"
+        }
+      ],
+  "configuration":
+  {
+    "cleanUpCycle":2000,
+    "timeout":30000,
+    "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
+    "url":"http://127.0.0.1:4729/wd/hub",
+    "host": "127.0.0.1",
+    "port": 4600,
+    "maxSession": 1,
+    "register": true,
+    "registerCycle": 5000,
+    "hub": "http://127.0.0.1:4444/grid/register/",
+    "hubPort": 4444,
+    "hubHost": "127.0.0.1"
+  }
+}

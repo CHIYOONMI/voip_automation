@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" verbose="5" parallel="tests" thread-count="2">
+
+
+    <test name="Start device(Galaxy S10)" preserve-order="true">
+
+        <parameter name="platform" value="Android" />
+        <parameter name="appl" value="app" />
+        <parameter name="port" value="4500" />
+        <parameter name="ver" value="9.0" />
+        <parameter name="device" value="Galaxy S10" />
+        <parameter name="udid" value="R58M46AFQGD"/>
+        <parameter name="autoname" value="uiautomator2"/>
+        <parameter name="systemp" value="8201"/>
+        <classes>
+            <class name="LineChatRoomTest">
+                <methods>
+                    <include name="TC_01_chatStart_A"/>
+                    <include name="TC_02_sendTextMessage_A"/>
+                    <include name="TC_03_receiveTextMessage_B"/>
+                    <include name="TC_04_groupCallStart_A"/>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- start -->
+
+
+
+</suite> <!-- Suite -->
